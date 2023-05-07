@@ -4,10 +4,7 @@ import com.BankAccount.BankAccountByAsma.Model.Account;
 import com.BankAccount.BankAccountByAsma.Service.AcoountService;
 import com.BankAccount.BankAccountByAsma.Slack.SlackClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.util.List;
@@ -59,5 +56,17 @@ public class AccountController {
         Account account = acoountService.getLatestUpdated();
         return account;
     }
+    @GetMapping(value = "addAccount")
+    public void addAccount() {
+        acoountService.addAccount();
+
+    }
+    @RequestMapping(value = "geAccountBalance", method = RequestMethod.GET)
+    public Account geAccountBalance(@RequestParam Integer accountBalance) {
+        Account account = acoountService.geAccountBalance(accountBalance);
+        return account;
+
+    }
+
 
 }

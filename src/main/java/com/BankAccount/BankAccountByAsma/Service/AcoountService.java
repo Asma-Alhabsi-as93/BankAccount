@@ -15,6 +15,8 @@ import java.util.List;
 public class AcoountService {
     @Autowired
     AcoountRepositry acoountRepositry;
+    @Autowired
+    CustomerService customerService;
 
     public List<Account> getAllAccount() {
         return acoountRepositry.getAllAccount();
@@ -34,18 +36,35 @@ public class AcoountService {
         return acoountRepositry.getAllInActiveSchools();
 
     }
+
     public Account getLatestRow() {
-        Account account= acoountRepositry.getLatestRow();
+        Account account = acoountRepositry.getLatestRow();
         return account;
     }
+
     public Account getLatestUpdated() {
         Account account = acoountRepositry.getLatestUpdated();
         return account;
     }
-//    public void deleteAccountById(Integer id) {
+
+    //    public void deleteAccountById(Integer id) {
 //        Account accountToDelete = acoountRepositry.findById(id).get();
 //        accountToDelete.setActive(false);
 //        acoountRepositry.save(accountToDelete);
 //    }
+    public void addAccount() {
+        Account account = new Account();
+        account.setId(7);
+        account.setBalance(50);
+        account.setAccountNumber(0065443);
+        account.setCreatedDate(new Date());
+        account.setIsActive(true);
+        account.setCustomer(customerService.getCustomertById(6));
+        acoountRepositry.save(account);
 
+    }
+    public Account geAccountBalance(Integer accountBalance){
+        Account account=  acoountRepositry.geAccountBalance(accountBalance);
+        return account;
+    }
 }

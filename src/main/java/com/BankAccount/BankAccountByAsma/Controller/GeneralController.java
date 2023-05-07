@@ -2,6 +2,7 @@ package com.BankAccount.BankAccountByAsma.Controller;
 
 import com.BankAccount.BankAccountByAsma.Slack.SlackClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,7 @@ public class GeneralController {
     SlackClient slackClient;
 
     @GetMapping(value = "test")
+    @PreAuthorize("hasRole('USER')")
     public String test(){
         return "${spring.profiles.active}";
     }
@@ -23,5 +25,9 @@ public class GeneralController {
         slackClient.sendMessage(text);
     }
 
-
+    @GetMapping("/admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String adminOnly() {
+        return "You are an admin!";
+    }
 }

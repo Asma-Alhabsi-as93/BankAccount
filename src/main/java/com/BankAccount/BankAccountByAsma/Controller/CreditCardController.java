@@ -4,10 +4,7 @@ import com.BankAccount.BankAccountByAsma.Model.Account;
 import com.BankAccount.BankAccountByAsma.Model.CreditCard;
 import com.BankAccount.BankAccountByAsma.Service.CreditCardService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +24,10 @@ public class CreditCardController {
     public CreditCard getCreditById(@RequestParam Integer creditId) {
         CreditCard creditCard = creditCardService.getCreditById(creditId);
         return creditCard;
+    }
+    @GetMapping(value = "addCreditCard")
+    public void addCreditCard() {
+        creditCardService.addCreditCard();
+
     }
 }

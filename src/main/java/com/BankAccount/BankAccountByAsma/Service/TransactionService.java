@@ -23,6 +23,7 @@ public class TransactionService {
 
 
     public List<Transaction> getAllTransaction() {
+
         return transactionRepositry.getAllTransaction();
     }
 
