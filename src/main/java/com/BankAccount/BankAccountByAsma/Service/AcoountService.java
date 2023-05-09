@@ -78,4 +78,7 @@ public class AcoountService {
         Account account=  acoountRepositry.findById(id).get();
         return account;
     }
+    public List<Account> getCustomerAccountInformation(Integer customerId) {
+        return acoountRepositry.getCustomerAccountInformation(customerId);
+    }
 }

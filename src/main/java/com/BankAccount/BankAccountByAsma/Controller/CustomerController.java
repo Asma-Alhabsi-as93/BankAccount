@@ -3,6 +3,7 @@ package com.BankAccount.BankAccountByAsma.Controller;
 import com.BankAccount.BankAccountByAsma.Model.Account;
 import com.BankAccount.BankAccountByAsma.Model.Customer;
 import com.BankAccount.BankAccountByAsma.RequestObject.UpdateCustomerInfo;
+import com.BankAccount.BankAccountByAsma.Service.AcoountService;
 import com.BankAccount.BankAccountByAsma.Service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,10 @@ import java.util.List;
 @RequestMapping(value = "Customer")
 public class CustomerController {
     @Autowired
+    AcoountService acoountService;
+    @Autowired
     CustomerService customerService;
+
     @RequestMapping(value = "getAll", method = RequestMethod.GET)
 
     public List<Customer> getAllCustomer() {
@@ -44,4 +48,11 @@ public class CustomerController {
             return "Customer Updated Failed";
         }
     }
+
+    @RequestMapping(value = "getCustomerAccountInformation", method = RequestMethod.GET)
+    public List<Account> getCustomerAccountInformation(Integer customerId) {
+        List<Account> accountList = acoountService.getCustomerAccountInformation(customerId);
+        return accountList;
+    }
+
 }
