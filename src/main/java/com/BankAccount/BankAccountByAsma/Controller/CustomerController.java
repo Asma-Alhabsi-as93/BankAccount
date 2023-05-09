@@ -54,5 +54,14 @@ public class CustomerController {
         List<Account> accountList = acoountService.getCustomerAccountInformation(customerId);
         return accountList;
     }
+    @RequestMapping(value = "deleteCustomer", method = RequestMethod.POST)
+    public String deleteCustomer(@RequestParam Integer id) {
+        try {
+            customerService.deleteCustomer(id);
+            return "Customer Updated Successfully";
+        } catch (Exception e) {
+            return "Customer Updated Failed";
+        }
+    }
 
 }

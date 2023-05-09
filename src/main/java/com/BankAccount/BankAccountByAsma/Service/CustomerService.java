@@ -47,4 +47,9 @@ public class CustomerService {
         customerRepositry.save(customerInfo);
 
     }
+    public void deleteCustomer(Integer id) {
+        Customer customer = customerRepositry.findById(id).get();
+        customer.setIsActive(Boolean.valueOf("false"));
+        customerRepositry.save(customer);
+    }
 }

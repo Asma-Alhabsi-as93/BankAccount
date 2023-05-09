@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 /*
 import org.springframework.security.access.prepost.PreAuthorize;
 */
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -77,5 +78,9 @@ public class AccountController {
 
     }
 
-
+    @RequestMapping(value = "makeMonthlyStatement", method = RequestMethod.GET)
+    public ResponseEntity<String> makeMonthlyStatement(@RequestParam Integer accountId) {
+        String statement = acoountService.makeMonthlyStatement(accountId);
+        return ResponseEntity.ok(statement);
+    }
 }

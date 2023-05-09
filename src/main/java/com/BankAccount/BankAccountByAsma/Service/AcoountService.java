@@ -12,6 +12,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -81,4 +82,20 @@ public class AcoountService {
     public List<Account> getCustomerAccountInformation(Integer customerId) {
         return acoountRepositry.getCustomerAccountInformation(customerId);
     }
+    public String makeMonthlyStatement(Integer id) {
+        Account account = acoountRepositry.findById(id).get();
+        Customer customer = account.getCustomer();
+        LocalDate localDate = LocalDate.now();
+        LocalDate statementDate = LocalDate.of(localDate.getYear(), localDate.getMonth(), 1);
+
+        String statementOfAccount = "Monthly Statement Of Account :" + account.getAccountNumber() +
+                "\n Customer Name :" + customer.getCustomerName() +
+                "\n Customer Email :" + customer.getEmail() +
+                "\n Customer Phone :" + customer.getPhoneNumber() +
+                "\n Date" + "\t" + localDate.getYear() + "\t" + localDate.getMonth() + "\t" + localDate.getDayOfMonth() +
+                "\n Account Balance :" + account.getBalance();
+
+        return statementOfAccount;
+    }
+
 }
