@@ -27,6 +27,6 @@ public interface AcoountRepositry extends JpaRepository<Account,Integer> {
     @Query(value ="SELECT s from Account s where s.updatedDate = (SELECT max(s.updatedDate) from Account s)")
     Account getLatestUpdated();
 
-    @Query(value = "SELECT s from Account s where s.balance =:accountBalance")
-    Account geAccountBalance(@Param("accountBalance") Integer accountBalance);
+    @Query(value = "SELECT s from Account s where s.id =:id")
+    Account geAccountBalanceById(@Param("id") Integer id);
 }

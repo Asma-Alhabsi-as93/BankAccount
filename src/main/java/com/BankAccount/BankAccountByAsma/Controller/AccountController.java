@@ -1,9 +1,13 @@
 package com.BankAccount.BankAccountByAsma.Controller;
 
 import com.BankAccount.BankAccountByAsma.Model.Account;
+import com.BankAccount.BankAccountByAsma.RequestObject.AccountRequest;
 import com.BankAccount.BankAccountByAsma.Service.AcoountService;
 import com.BankAccount.BankAccountByAsma.Slack.SlackClient;
 import org.springframework.beans.factory.annotation.Autowired;
+/*
+import org.springframework.security.access.prepost.PreAuthorize;
+*/
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -56,14 +60,19 @@ public class AccountController {
         Account account = acoountService.getLatestUpdated();
         return account;
     }
-    @GetMapping(value = "addAccount")
-    public void addAccount() {
-        acoountService.addAccount();
-
+    @RequestMapping(value = "addAccount", method = RequestMethod.POST)
+    public String addAccount(@RequestBody AccountRequest account) {
+        try {
+            acoountService.addAccount(account);
+            return "Account added Successfully";
+        } catch (Exception e) {
+            return "Account added Failed";
+        }
     }
-    @RequestMapping(value = "geAccountBalance", method = RequestMethod.GET)
-    public Account geAccountBalance(@RequestParam Integer accountBalance) {
-        Account account = acoountService.geAccountBalance(accountBalance);
+    @RequestMapping(value = "geAccountBalanceById", method = RequestMethod.GET)
+    //@PreAuthorize("hasRole('USER')")
+    public Account geAccountBalanceById(@RequestParam Integer id) {
+        Account account = acoountService.geAccountBalanceById(id);
         return account;
 
     }

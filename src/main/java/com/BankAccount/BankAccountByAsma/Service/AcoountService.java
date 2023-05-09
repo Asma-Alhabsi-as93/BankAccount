@@ -1,10 +1,14 @@
 package com.BankAccount.BankAccountByAsma.Service;
 
 import com.BankAccount.BankAccountByAsma.Model.Account;
+import com.BankAccount.BankAccountByAsma.Model.Customer;
 import com.BankAccount.BankAccountByAsma.Repositry.AcoountRepositry;
+import com.BankAccount.BankAccountByAsma.Repositry.CustomerRepositry;
+import com.BankAccount.BankAccountByAsma.RequestObject.AccountRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,6 +21,8 @@ public class AcoountService {
     AcoountRepositry acoountRepositry;
     @Autowired
     CustomerService customerService;
+    @Autowired
+    CustomerRepositry customerRepositry;
 
     public List<Account> getAllAccount() {
         return acoountRepositry.getAllAccount();
@@ -52,19 +58,24 @@ public class AcoountService {
 //        accountToDelete.setActive(false);
 //        acoountRepositry.save(accountToDelete);
 //    }
-    public void addAccount() {
-        Account account = new Account();
-        account.setId(7);
-        account.setBalance(50);
-        account.setAccountNumber(0065443);
-        account.setCreatedDate(new Date());
-        account.setIsActive(true);
-        account.setCustomer(customerService.getCustomertById(6));
-        acoountRepositry.save(account);
+    public void  addAccount(AccountRequest account) {
+        Double interestVariable = 2.5; // variable for interest
+        Account accountInfo = new Account();
+        accountInfo.setAccountNumber(account.getAccountNumber());
+        accountInfo.setInterest(interestVariable);
+        Double calculateInterest=account.getBalance()*interestVariable;
+        Double newBalance= account.getBalance()-calculateInterest;
+        accountInfo.setBalance(newBalance);// balance * interest Variable to get the profit
+        Integer id = customerRepositry.findIdByPhoneNumber(account.getPhoneNumber()); // find ID by unique variable (Phone)
+        Customer customerId = customerRepositry.findById(id).get() ;
+        accountInfo.setCustomer(customerId);
+        accountInfo.setIsActive(account.getIsActive());
+        accountInfo.setCreatedDate(new Date());
+        acoountRepositry.save(accountInfo);
 
     }
-    public Account geAccountBalance(Integer accountBalance){
-        Account account=  acoountRepositry.geAccountBalance(accountBalance);
+    public Account geAccountBalanceById(Integer id){
+        Account account=  acoountRepositry.findById(id).get();
         return account;
     }
 }

@@ -4,6 +4,7 @@ import com.BankAccount.BankAccountByAsma.Model.Account;
 import com.BankAccount.BankAccountByAsma.Model.CreditCard;
 import com.BankAccount.BankAccountByAsma.Model.Customer;
 import com.BankAccount.BankAccountByAsma.Repositry.CustomerRepositry;
+import com.BankAccount.BankAccountByAsma.RequestObject.UpdateCustomerInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,20 @@ public class CustomerService {
         customer.setCreatedDate(new Date());
         customer.setIsActive(true);
         customerRepositry.save(customer);
+
+    }
+    public Customer getCustomerByCustomerName(String customerName) {
+        return customerRepositry.getCustomerByCustomerName(customerName);
+    }
+    public void updateCustomer(UpdateCustomerInfo customer) {
+        Customer customerInfo = new Customer();
+        customerInfo.setId(customer.getId());
+        customerInfo.setCustomerName(customer.getName());
+        customerInfo.setEmail(customer.getEmail());
+        customerInfo.setPhoneNumber(customer.getPhone());
+        customerInfo.setIsActive(customer.getIsActive());
+        customerInfo.setCreatedDate(customer.getCreatedDate());
+        customerRepositry.save(customerInfo);
 
     }
 }
