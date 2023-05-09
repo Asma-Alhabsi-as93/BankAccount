@@ -11,4 +11,6 @@ import java.util.List;
 public interface TransactionRepositry extends JpaRepository<Transaction,Integer> {
     @Query(value = "SELECT s from Transaction s")
     List<Transaction> getAllTransaction();
+
+    List<Transaction> findByAccount(Account account); // get the Transaction list from account
 }

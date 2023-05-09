@@ -2,11 +2,17 @@ package com.BankAccount.BankAccountByAsma.Service;
 
 import com.BankAccount.BankAccountByAsma.Model.Account;
 import com.BankAccount.BankAccountByAsma.Model.Customer;
+import com.BankAccount.BankAccountByAsma.Model.Transaction;
 import com.BankAccount.BankAccountByAsma.Repositry.AcoountRepositry;
 import com.BankAccount.BankAccountByAsma.Repositry.CustomerRepositry;
+import com.BankAccount.BankAccountByAsma.Repositry.TransactionRepositry;
 import com.BankAccount.BankAccountByAsma.RequestObject.AccountRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import java.text.DateFormat;
@@ -24,6 +30,8 @@ public class AcoountService {
     CustomerService customerService;
     @Autowired
     CustomerRepositry customerRepositry;
+    @Autowired
+    TransactionRepositry transactionRepositry;
 
     public List<Account> getAllAccount() {
         return acoountRepositry.getAllAccount();
@@ -96,6 +104,11 @@ public class AcoountService {
                 "\n Account Balance :" + account.getBalance();
 
         return statementOfAccount;
+    }
+    public List<Transaction> getAccountHistoryWithTransaction(Integer id) {
+        Account account = acoountRepositry.findById(id).get(); // get the account ID
+        List<Transaction> transactionList = transactionRepositry.findByAccount(account); //get the Transaction ID from Account
+        return transactionList;
     }
 
 }

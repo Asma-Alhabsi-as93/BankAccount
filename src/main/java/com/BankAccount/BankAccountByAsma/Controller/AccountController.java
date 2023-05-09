@@ -1,6 +1,7 @@
 package com.BankAccount.BankAccountByAsma.Controller;
 
 import com.BankAccount.BankAccountByAsma.Model.Account;
+import com.BankAccount.BankAccountByAsma.Model.Transaction;
 import com.BankAccount.BankAccountByAsma.RequestObject.AccountRequest;
 import com.BankAccount.BankAccountByAsma.Service.AcoountService;
 import com.BankAccount.BankAccountByAsma.Slack.SlackClient;
@@ -82,5 +83,10 @@ public class AccountController {
     public ResponseEntity<String> makeMonthlyStatement(@RequestParam Integer accountId) {
         String statement = acoountService.makeMonthlyStatement(accountId);
         return ResponseEntity.ok(statement);
+    }
+    @RequestMapping(value = "getAccountHistoryWithTransaction", method = RequestMethod.GET)
+    public ResponseEntity<List<Transaction>> getAccountHistoryWithTransaction(@RequestParam Integer id) {
+        List<Transaction> transactionList = acoountService.getAccountHistoryWithTransaction(id);
+        return ResponseEntity.ok(transactionList);
     }
 }
