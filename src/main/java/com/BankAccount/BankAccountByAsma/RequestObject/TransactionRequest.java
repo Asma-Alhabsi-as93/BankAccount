@@ -9,9 +9,9 @@ import java.util.Date;
 @Setter
 @Data
 public class TransactionRequest {
-    private Double amount;
+     Double amount;
+     Integer accountNumber;
+     Boolean isActive;
 
-    private Integer accountNumber;
-    private Boolean isActive;
 
 }

@@ -110,5 +110,12 @@ public class AcoountService {
         List<Transaction> transactionList = transactionRepositry.findByAccount(account); //get the Transaction ID from Account
         return transactionList;
     }
+    public Account retriveBalanceBySpacificAccount(Integer accountNumber){
+        Account account = acoountRepositry.retriveBalanceBySpacificAccount(accountNumber);
+        return  account;
+    }
+
+
+
 
 }

@@ -16,7 +16,7 @@ public class Transaction extends  BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
-    Date amountDate;
+    Double amount;
     @ManyToOne
     @JoinColumn(name = "account_id",referencedColumnName="id")
     Account account;

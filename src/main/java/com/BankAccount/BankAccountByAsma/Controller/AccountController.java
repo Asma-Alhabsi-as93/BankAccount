@@ -89,4 +89,10 @@ public class AccountController {
         List<Transaction> transactionList = acoountService.getAccountHistoryWithTransaction(id);
         return ResponseEntity.ok(transactionList);
     }
+
+    @RequestMapping(value = "RetrieveBalanceBySpecificAccount", method = RequestMethod.GET)
+    public Account getBalanceBySpacificAccount(@RequestParam Integer accountNumber){
+        Account account = acoountService.retriveBalanceBySpacificAccount(accountNumber);
+        return account;
+    }
 }
