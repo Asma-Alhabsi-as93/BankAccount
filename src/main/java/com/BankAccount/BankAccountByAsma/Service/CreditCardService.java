@@ -2,7 +2,11 @@ package com.BankAccount.BankAccountByAsma.Service;
 
 import com.BankAccount.BankAccountByAsma.Model.Account;
 import com.BankAccount.BankAccountByAsma.Model.CreditCard;
+import com.BankAccount.BankAccountByAsma.Model.Customer;
+import com.BankAccount.BankAccountByAsma.Repositry.AcoountRepositry;
 import com.BankAccount.BankAccountByAsma.Repositry.CreditCardRepository;
+import com.BankAccount.BankAccountByAsma.Repositry.CustomerRepositry;
+import com.BankAccount.BankAccountByAsma.RequestObject.CreditCardInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,22 +19,32 @@ public class CreditCardService {
     CreditCardRepository creditCardRepository;
     @Autowired
     CustomerService customerService;
+    @Autowired
+    CustomerRepositry customerRepositry;
+    @Autowired
+    AcoountRepositry acoountRepositry;
+
     public List<CreditCard> getAllCreditCards() {
-      return creditCardRepository.getAllCreditCards();
+        return creditCardRepository.getAllCreditCards();
     }
+
     public CreditCard getCreditById(Integer creditId) {
         CreditCard creditCard = creditCardRepository.getCreditById(creditId);
         return creditCard;
     }
-    public void addCreditCard() {
-        CreditCard creditCard = new CreditCard();
-        creditCard.setId(7);
-        creditCard.setLimit(30);
-        creditCard.setNumber(16);
-        creditCard.setCreatedDate(new Date());
-        creditCard.setIsActive(true);
-        creditCard.setCustomer(customerService.getCustomertById(3));
-        creditCardRepository.save(creditCard);
+
+    public void addCreditCard(CreditCardInfo creditCard) {
+        CreditCard creditCardInfo = new CreditCard();
+        creditCardInfo.setNumber(creditCard.getCardNumber());
+        String customerName = creditCard.getCustomerName();
+        Integer id = customerRepositry.findByCustomerName(customerName);
+        Customer customerId = customerRepositry.findById(id).get();
+        Double balance = acoountRepositry.getBalanceByCustomerId(id);
+        creditCardInfo.setCreditCardBalanse(balance);
+        creditCardInfo.setIsActive(creditCard.getIsActive());
+        creditCardInfo.setCustomer(customerId);
+        creditCardRepository.save(creditCardInfo);
+
 
     }
 }

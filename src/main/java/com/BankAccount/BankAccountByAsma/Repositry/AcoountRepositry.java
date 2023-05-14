@@ -46,4 +46,7 @@ public interface AcoountRepositry extends JpaRepository<Account,Integer> {
 
     @Query(value = "Select a from Account a Where a.customer.id = :customerId")
     Account getAccountByCustomerId(@Param("customerId") Integer customerId);
+
+    @Query(value = "Select account_balance from account Where customer_id = :customerId", nativeQuery = true)
+    Double getBalanceByCustomerId(@Param("customerId") Integer customerId);
 }

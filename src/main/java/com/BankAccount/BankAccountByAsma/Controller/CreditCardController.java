@@ -2,6 +2,7 @@ package com.BankAccount.BankAccountByAsma.Controller;
 
 import com.BankAccount.BankAccountByAsma.Model.Account;
 import com.BankAccount.BankAccountByAsma.Model.CreditCard;
+import com.BankAccount.BankAccountByAsma.RequestObject.CreditCardInfo;
 import com.BankAccount.BankAccountByAsma.Service.CreditCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +26,12 @@ public class CreditCardController {
         CreditCard creditCard = creditCardService.getCreditById(creditId);
         return creditCard;
     }
-    @GetMapping(value = "addCreditCard")
-    public void addCreditCard() {
-        creditCardService.addCreditCard();
+ @RequestMapping(value = "addCreditCard", method = RequestMethod.POST)
+    public String addCreditCard(@RequestBody CreditCardInfo creditCard) {
+        creditCardService.addCreditCard(creditCard);
+        String creditCards = "CreditCard Add Successfully";
+        return creditCards;
 
     }
+
 }

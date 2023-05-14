@@ -15,7 +15,7 @@ public class CreditCard extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
-    Integer limit;
+    Double creditCardBalanse;
     Integer number;
     @ManyToOne
     @JoinColumn(name = "customer_id",referencedColumnName="id")
