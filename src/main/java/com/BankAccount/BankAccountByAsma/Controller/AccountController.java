@@ -95,4 +95,17 @@ public class AccountController {
         Account account = acoountService.retriveBalanceBySpacificAccount(accountNumber);
         return account;
     }
+    @RequestMapping(value = "deleteAccount", method = RequestMethod.POST)
+    public String deleteAccount(Integer id){
+        try{
+            acoountService.deleteAccount(id);
+            return "Account deleted Successfully";
+
+        }catch (Exception e) {
+            return "Account delete failed";
+        }
+
+    }
+
+
 }

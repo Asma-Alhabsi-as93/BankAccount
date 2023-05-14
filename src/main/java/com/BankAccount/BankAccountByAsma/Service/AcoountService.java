@@ -114,6 +114,12 @@ public class AcoountService {
         Account account = acoountRepositry.retriveBalanceBySpacificAccount(accountNumber);
         return  account;
     }
+    public void deleteAccount(Integer id){
+        acoountRepositry.deleteAccount(id);
+    }
+
+
+
 
 
 

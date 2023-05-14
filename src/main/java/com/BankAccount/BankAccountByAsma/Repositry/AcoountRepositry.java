@@ -38,4 +38,8 @@ public interface AcoountRepositry extends JpaRepository<Account,Integer> {
 
     @Query(value = "Select s from Account s Where s.accountNumber = :accountNumber")
     Account retriveBalanceBySpacificAccount(@Param("accountNumber") Integer accountNumber);
+
+    @Query(value = "Update Account c SET c.isActive=0 WHERE c.id = :id")
+    void deleteAccount(@Param("id")Integer id);
+
 }
