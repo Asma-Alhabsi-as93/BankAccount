@@ -63,5 +63,10 @@ public class CustomerController {
             return "Customer Updated Failed";
         }
     }
+    @RequestMapping(value = "getCustomerHistory", method = RequestMethod.GET)
+    public List<Account> getCustomerHistory(@RequestParam Integer customerId) {
+        List<Account> account = customerService.getAccountHistory(customerId);
+        return account;
+    }
 
 }

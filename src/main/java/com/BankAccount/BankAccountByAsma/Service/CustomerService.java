@@ -3,6 +3,7 @@ package com.BankAccount.BankAccountByAsma.Service;
 import com.BankAccount.BankAccountByAsma.Model.Account;
 import com.BankAccount.BankAccountByAsma.Model.CreditCard;
 import com.BankAccount.BankAccountByAsma.Model.Customer;
+import com.BankAccount.BankAccountByAsma.Repositry.AcoountRepositry;
 import com.BankAccount.BankAccountByAsma.Repositry.CustomerRepositry;
 import com.BankAccount.BankAccountByAsma.RequestObject.UpdateCustomerInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import java.util.List;
 public class CustomerService {
     @Autowired
     CustomerRepositry customerRepositry;
+    @Autowired
+    AcoountRepositry acoountRepositry;
     public List<Customer> getAllCustomer() {
         return customerRepositry.getAllCustomer();
     }
@@ -51,5 +54,11 @@ public class CustomerService {
         Customer customer = customerRepositry.findById(id).get();
         customer.setIsActive(Boolean.valueOf("false"));
         customerRepositry.save(customer);
+    }
+
+    public List<Account> getAccountHistory(Integer customerId){
+        Customer customer = customerRepositry.findById(customerId).get();
+        List<Account> accounts = acoountRepositry.getAllByCustomer(customer);
+        return accounts;
     }
 }

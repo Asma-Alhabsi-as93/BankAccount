@@ -1,6 +1,7 @@
 package com.BankAccount.BankAccountByAsma.Repositry;
 
 import com.BankAccount.BankAccountByAsma.Model.Account;
+import com.BankAccount.BankAccountByAsma.Model.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -41,5 +42,8 @@ public interface AcoountRepositry extends JpaRepository<Account,Integer> {
 
     @Query(value = "Update Account c SET c.isActive=0 WHERE c.id = :id")
     void deleteAccount(@Param("id")Integer id);
+    List<Account> getAllByCustomer(Customer customer);
 
+    @Query(value = "Select a from Account a Where a.customer.id = :customerId")
+    Account getAccountByCustomerId(@Param("customerId") Integer customerId);
 }

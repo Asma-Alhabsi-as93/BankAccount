@@ -4,6 +4,7 @@ import com.BankAccount.BankAccountByAsma.Model.Account;
 import com.BankAccount.BankAccountByAsma.Model.Transaction;
 import com.BankAccount.BankAccountByAsma.RequestObject.AccountRequest;
 import com.BankAccount.BankAccountByAsma.Service.AcoountService;
+import com.BankAccount.BankAccountByAsma.Service.TransactionService;
 import com.BankAccount.BankAccountByAsma.Slack.SlackClient;
 import org.springframework.beans.factory.annotation.Autowired;
 /*
@@ -23,6 +24,8 @@ public class AccountController {
     AcoountService acoountService;
     @Autowired
     SlackClient slackClient;
+    @Autowired
+    TransactionService transactionService;
 
     @RequestMapping(value = "getAll", method = RequestMethod.GET)
 
@@ -106,6 +109,5 @@ public class AccountController {
         }
 
     }
-
 
 }
